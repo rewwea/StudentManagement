@@ -133,3 +133,14 @@ double average_math(string** a, int n)
     sum += stod(a[i][5]);
   return sum / (n - 1);
 }
+
+//Вывод студентов с оценками выше средней
+void find_rpm_above_avg(string** a, int n)
+{
+  double avg = average_rpm(a, n);
+  for (int i = 1; i < n; i++)
+  {
+    if (stod(a[i][3]) > avg)
+      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+  }
+}

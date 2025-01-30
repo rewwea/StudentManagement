@@ -36,6 +36,5 @@ int main()
   average_rpm(students, cnt);
   average_test(students, cnt);
   average_math(students, cnt);
-
-
+  find_rpm_above_avg(students, cnt);
 }

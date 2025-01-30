@@ -14,3 +14,4 @@ void find_math_above_3(string** a, int n);
 double average_rpm(string** a, int n);
 double average_test(string** a, int n);
 double average_math(string** a, int n);
+void find_rpm_above_avg(string** a, int n);
