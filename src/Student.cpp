@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace std;
+
 void input(string** a, int n)
 {
   for (int i = 1; i < n; i++)
@@ -35,7 +36,7 @@ void find_group(string** a, int n)
   }
 }
 //вывести студентов возраста старше указанного
-void find_age(string** a, int n)
+void find_age_older(string** a, int n)
 {
   int age;
   cout << "Введите возраст: ";
@@ -48,6 +49,22 @@ void find_age(string** a, int n)
       cout << endl;
     }
     if (stoi(a[i][1]) < age);
+    {
+      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
+      cout << endl;
+    }
+  }
+}
+
+//Вывести студентов, чей возраст меньше указанного
+void find_age_younger(string** a, int n)
+{
+  int age;
+  cout << "Введите возраст: ";
+  cin >> age;
+  for (int i = 1; i < n; i++)
+  {
+    if (stoi(a[i][1]) < age)
     {
       cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
       cout << endl;

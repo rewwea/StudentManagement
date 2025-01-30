@@ -28,5 +28,6 @@ int main()
   input(students, cnt);
   output(students, cnt);
   find_group(students, cnt);
-  find_age(students, cnt);
+  find_age_older(students, cnt);
+  find_age_younger(students, cnt);
 }
