@@ -144,3 +144,15 @@ void find_rpm_above_avg(string** a, int n)
       cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
   }
 }
+
+//Поиск студентов с тестом выше средней, а РПМ ниже средней
+void find_test_above_avg_rpm_below_avg(string** a, int n)
+{
+  double avgTest = average_test(a, n);
+  double avgRPM = average_rpm(a, n);
+  for (int i = 1; i < n; i++)
+  {
+    if (stod(a[i][4]) > avgTest && stod(a[i][3]) < avgRPM)
+      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+  }
+}
