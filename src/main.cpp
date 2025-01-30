@@ -30,4 +30,7 @@ int main()
   find_group(students, cnt);
   find_age_older(students, cnt);
   find_age_younger(students, cnt);
+  find_rpm_above_3(students, cnt);
+  find_test_above_3(students, cnt);
+  find_math_above_3(students, cnt);
 }

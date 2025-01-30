@@ -20,7 +20,7 @@ void output(string** a, int n)
     cout << endl;
   }
 }
-//вывести студентой указанной группы
+//Вывести студентой указанной группы
 void find_group(string** a, int n)
 {
   string group;
@@ -65,6 +65,43 @@ void find_age_younger(string** a, int n)
   for (int i = 1; i < n; i++)
   {
     if (stoi(a[i][1]) < age)
+    {
+      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
+      cout << endl;
+    }
+  }
+}
+
+//Фильтрация студентов по оценкам (больше 3)
+void find_rpm_above_3(string** a, int n)
+{
+  for (int i = 1; i < n; i++)
+  {
+    if (stod(a[i][3]) > 3)
+    {
+      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
+      cout << endl;
+    }
+  }
+}
+
+void find_test_above_3(string** a, int n)
+{
+  for (int i = 1; i < n; i++)
+  {
+    if (stod(a[i][4]) > 3)
+    {
+      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
+      cout << endl;
+    }
+  }
+}
+
+void find_math_above_3(string** a, int n)
+{
+  for (int i = 1; i < n; i++)
+  {
+    if (stod(a[i][5]) > 3)
     {
       cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
       cout << endl;

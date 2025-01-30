@@ -8,3 +8,6 @@ void output(string** a, int n);
 void find_group(string** a, int n);
 void find_age_older(string** a, int n);
 void find_age_younger(string** a, int n);
+void find_rpm_above_3(string** a, int n);
+void find_test_above_3(string** a, int n);
+void find_math_above_3(string** a, int n);
