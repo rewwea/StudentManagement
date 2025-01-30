@@ -156,3 +156,23 @@ void find_test_above_avg_rpm_below_avg(string** a, int n)
       cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
   }
 }
+
+//Вывести студентов, у которых ВСЕ оценки выше средней
+void find_all_above_avg(string** a, int n, double avg_rpm, double avg_test, double avg_math)
+{
+    cout << "Студенты с оценками выше средней по всем предметам:" << endl;
+
+    // Проверяем каждого студента
+    for (int i = 1; i < n; i++)
+    {
+        double rpm = stod(a[i][3]);
+        double test = stod(a[i][4]);
+        double math = stod(a[i][5]);
+
+        // Если все оценки студента выше соответствующих средних
+        if (rpm > avg_rpm && test > avg_test && math > avg_math)
+        {
+            cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+        }
+    }
+}
