@@ -108,3 +108,28 @@ void find_math_above_3(string** a, int n)
     }
   }
 }
+
+//Вычисление средних значений
+double average_rpm(string** a, int n)
+{
+  double sum = 0;
+  for (int i = 1; i < n; i++)
+    sum += stod(a[i][3]);
+  return sum / (n - 1);
+}
+
+double average_test(string** a, int n)
+{
+  double sum = 0;
+  for (int i = 1; i < n; i++)
+    sum += stod(a[i][4]);
+  return sum / (n - 1);
+}
+
+double average_math(string** a, int n)
+{
+  double sum = 0;
+  for (int i = 1; i < n; i++)
+    sum += stod(a[i][5]);
+  return sum / (n - 1);
+}

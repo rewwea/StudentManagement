@@ -33,4 +33,9 @@ int main()
   find_rpm_above_3(students, cnt);
   find_test_above_3(students, cnt);
   find_math_above_3(students, cnt);
+  average_rpm(students, cnt);
+  average_test(students, cnt);
+  average_math(students, cnt);
+
+
 }
