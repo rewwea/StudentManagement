@@ -1,178 +1,189 @@
 #include "Student.h"
 #include <string>
 #include <iostream>
-
+#include <fstream>
 using namespace std;
 
 void input(string** a, int n)
 {
-  for (int i = 1; i < n; i++)
-  {
-    cin >> a[i][0] >> a[i][1] >> a[i][2] >> a[i][3] >> a[i][4] >> a[i][5];
-  }
+    for (int i = 1; i < n; i++)
+    {
+        cin >> a[i][0] >> a[i][1] >> a[i][2] >> a[i][3] >> a[i][4] >> a[i][5];
+    }
+}
+
+void input_from_file(string** a, const string& filename)
+{
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cerr << "Ошибка: Не удалось открыть файл!" << endl;
+        exit(1);
+    }
+
+    for (int i = 0; i < count_lines(infile); i++)
+    {
+        infile >> a[i][0] >> a[i][1] >> a[i][2] >> a[i][3] >> a[i][4] >> a[i][5];
+    }
+    infile.close();
+}
+
+int count_lines(ifstream& file)
+{
+    file.clear(); // сбросить флаг конца файла
+    file.seekg(0, ios::beg); // вернуться к началу файла
+
+    int lines = 0;
+    string line;
+    while (getline(file, line))
+    {
+        ++lines;
+    }
+
+    file.clear(); // сбросить флаг конца файла
+    file.seekg(0, ios::beg); // вернуться к началу файла
+
+    return lines;
 }
 
 void output(string** a, int n)
 {
-  for (int i = 0; i < n; i++)
-  {
-    cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-    cout << endl;
-  }
-}
-//Вывести студентой указанной группы
-void find_group(string** a, int n)
-{
-  string group;
-  cout << "Введите группу: ";
-  cin >> group;
-  for (int i = 0; i < n; i++)
-  {
-    if (a[i][2].find(group) != -1)
+    for (int i = 0; i < n; i++)
     {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
+        cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
+        cout << endl;
     }
-  }
-}
-//вывести студентов возраста старше указанного
-void find_age_older(string** a, int n)
-{
-  int age;
-  cout << "Введите возраст: ";
-  cin >> age;
-  for (int i = 0; i < n; i++)
-  {
-    if (stoi(a[i][1]) > age)
-    {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
-    }
-    if (stoi(a[i][1]) < age);
-    {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
-    }
-  }
 }
 
-//Вывести студентов, чей возраст меньше указанного
-void find_age_younger(string** a, int n)
+// Добавляем параметр для записи в файл
+void find_group(string** a, int n, ofstream* outfile)
 {
-  int age;
-  cout << "Введите возраст: ";
-  cin >> age;
-  for (int i = 1; i < n; i++)
-  {
-    if (stoi(a[i][1]) < age)
+    string group;
+    cout << "Введите группу: ";
+    cin >> group;
+    for (int i = 0; i < n; i++)
     {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
+        if (a[i][2].find(group) != -1)
+        {
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+        }
     }
-  }
 }
 
-//Фильтрация студентов по оценкам (больше 3)
-void find_rpm_above_3(string** a, int n)
+// Аналогично для других функций
+void find_rpm_above_3(string** a, int n, ofstream* outfile)
 {
-  for (int i = 1; i < n; i++)
-  {
-    if (stod(a[i][3]) > 3)
+    for (int i = 1; i < n; i++)
     {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
+        if (stod(a[i][3]) > 3)
+        {
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+        }
     }
-  }
 }
 
-void find_test_above_3(string** a, int n)
+void find_test_above_3(string** a, int n, ofstream* outfile)
 {
-  for (int i = 1; i < n; i++)
-  {
-    if (stod(a[i][4]) > 3)
+    for (int i = 1; i < n; i++)
     {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
+        if (stod(a[i][4]) > 3)
+        {
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+        }
     }
-  }
 }
 
-void find_math_above_3(string** a, int n)
+void find_math_above_3(string** a, int n, ofstream* outfile)
 {
-  for (int i = 1; i < n; i++)
-  {
-    if (stod(a[i][5]) > 3)
+    for (int i = 1; i < n; i++)
     {
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5];
-      cout << endl;
+        if (stod(a[i][5]) > 3)
+        {
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+        }
     }
-  }
 }
 
-//Вычисление средних значений
 double average_rpm(string** a, int n)
 {
-  double sum = 0;
-  for (int i = 1; i < n; i++)
-    sum += stod(a[i][3]);
-  return sum / (n - 1);
+    double sum = 0;
+    for (int i = 1; i < n; i++)
+        sum += stod(a[i][3]);
+    return sum / (n - 1);
 }
 
 double average_test(string** a, int n)
 {
-  double sum = 0;
-  for (int i = 1; i < n; i++)
-    sum += stod(a[i][4]);
-  return sum / (n - 1);
+    double sum = 0;
+    for (int i = 1; i < n; i++)
+        sum += stod(a[i][4]);
+    return sum / (n - 1);
 }
 
 double average_math(string** a, int n)
 {
-  double sum = 0;
-  for (int i = 1; i < n; i++)
-    sum += stod(a[i][5]);
-  return sum / (n - 1);
+    double sum = 0;
+    for (int i = 1; i < n; i++)
+        sum += stod(a[i][5]);
+    return sum / (n - 1);
 }
 
-//Вывод студентов с оценками выше средней
-void find_rpm_above_avg(string** a, int n)
+void find_rpm_above_avg(string** a, int n, ofstream* outfile)
 {
-  double avg = average_rpm(a, n);
-  for (int i = 1; i < n; i++)
-  {
-    if (stod(a[i][3]) > avg)
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
-  }
+    double avg = average_rpm(a, n);
+    for (int i = 1; i < n; i++)
+    {
+        if (stod(a[i][3]) > avg)
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+    }
 }
 
-//Поиск студентов с тестом выше средней, а РПМ ниже средней
-void find_test_above_avg_rpm_below_avg(string** a, int n)
+void find_test_above_avg_rpm_below_avg(string** a, int n, ofstream* outfile)
 {
-  double avgTest = average_test(a, n);
-  double avgRPM = average_rpm(a, n);
-  for (int i = 1; i < n; i++)
-  {
-    if (stod(a[i][4]) > avgTest && stod(a[i][3]) < avgRPM)
-      cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
-  }
+    double avgTest = average_test(a, n);
+    double avgRPM = average_rpm(a, n);
+    for (int i = 1; i < n; i++)
+    {
+        if (stod(a[i][4]) > avgTest && stod(a[i][3]) < avgRPM)
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+    }
 }
 
-//Вывести студентов, у которых ВСЕ оценки выше средней
-void find_all_above_avg(string** a, int n, double avg_rpm, double avg_test, double avg_math)
+void find_all_above_avg(string** a, int n, double avg_rpm, double avg_test, double avg_math, ofstream* outfile)
 {
-    cout << "Студенты с оценками выше средней по всем предметам:" << endl;
+    if (outfile)
+        (*outfile) << "Студенты с оценками выше средней по всем предметам:" << endl;
+    else
+        cout << "Студенты с оценками выше средней по всем предметам:" << endl;
 
-    // Проверяем каждого студента
     for (int i = 1; i < n; i++)
     {
         double rpm = stod(a[i][3]);
         double test = stod(a[i][4]);
         double math = stod(a[i][5]);
-
-        // Если все оценки студента выше соответствующих средних
         if (rpm > avg_rpm && test > avg_test && math > avg_math)
         {
-            cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            if (outfile)
+                (*outfile) << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
+            else
+                cout << a[i][0] << "\t" << a[i][1] << "\t" << a[i][2] << "\t" << a[i][3] << "\t" << a[i][4] << "\t" << a[i][5] << endl;
         }
     }
 }
