@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <fstream>
 #include "Student.h"
+#include <fstream>
 using namespace std;
 
 int main()
@@ -59,6 +59,7 @@ int main()
 
     output(students, cnt);
 
+    // Сохранение результатов в файлы
     ofstream group_file, above_3_file, avg_points_file, all_above_avg_file;
     string group_name;
     double avg_rpm = average_rpm(students, cnt);
@@ -85,7 +86,7 @@ int main()
     all_above_avg_file.open("avg_for_all_points.txt");
     find_all_above_avg(students, cnt, avg_rpm, avg_test, avg_math, &all_above_avg_file);
     all_above_avg_file.close();
-    
+
     for (int i = 0; i < cnt; i++) {
         delete[] students[i];
     }

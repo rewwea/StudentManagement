@@ -20,17 +20,17 @@ void input_from_file(string** a, const string& filename)
         exit(1);
     }
 
-    for (int i = 0; i < count_lines(infile); i++)
-    {
-        infile >> a[i][0] >> a[i][1] >> a[i][2] >> a[i][3] >> a[i][4] >> a[i][5];
+    int i = 0; 
+    while (infile >> a[i][0] >> a[i][1] >> a[i][2] >> a[i][3] >> a[i][4] >> a[i][5]) {
+        ++i;
     }
     infile.close();
 }
 
 int count_lines(ifstream& file)
 {
-    file.clear(); // сбросить флаг конца файла
-    file.seekg(0, ios::beg); // вернуться к началу файла
+    file.clear(); 
+    file.seekg(0, ios::beg); 
 
     int lines = 0;
     string line;
@@ -39,8 +39,8 @@ int count_lines(ifstream& file)
         ++lines;
     }
 
-    file.clear(); // сбросить флаг конца файла
-    file.seekg(0, ios::beg); // вернуться к началу файла
+    file.clear(); 
+    file.seekg(0, ios::beg); 
 
     return lines;
 }
@@ -54,13 +54,12 @@ void output(string** a, int n)
     }
 }
 
-// Добавляем параметр для записи в файл
 void find_group(string** a, int n, ofstream* outfile)
 {
     string group;
     cout << "Введите группу: ";
     cin >> group;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
         if (a[i][2].find(group) != -1)
         {
@@ -72,7 +71,6 @@ void find_group(string** a, int n, ofstream* outfile)
     }
 }
 
-// Аналогично для других функций
 void find_rpm_above_3(string** a, int n, ofstream* outfile)
 {
     for (int i = 1; i < n; i++)
